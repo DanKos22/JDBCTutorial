@@ -8,12 +8,18 @@ public class pool {
         String url = "jdbc:mysql://localhost:3306/newdatabase";
         String password = "root";
 
-        String selectSQL= "SELECT p.name, p.age, p.email" + "FROM person p " + "WHERE name = Paulina";
+        String selectSQL= "SELECT email FROM person";
 
             try {
-
                 Connection connection = DriverManager.getConnection(url, "root", "root");
-                System.out.println("Connection is successful to the database: " + url);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(selectSQL);
+
+                while(resultSet.next()) {
+                    String email = resultSet.getString("email");
+                    System.out.println("Email: "+ email);
+                }
+
             } catch( SQLException e) {
             e.printStackTrace();
         }
